@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AssetsController } from './assets.controller';
-import { AssetsService } from './assets.service';
+import { AssetController } from './assets.controller';
+import { AssetService } from './assets.service';
+import { Asset, AssetSchema } from "./schemas/asset.schema";
+import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
-  controllers: [AssetsController],
-  providers: [AssetsService]
+  imports: [
+    MongooseModule.forFeature([
+      { name: Asset.name, schema: AssetSchema }
+    ])
+  ],
+  controllers: [AssetController],
+  providers: [AssetService],
+  exports: [AssetService]
 })
 export class AssetsModule {}
